@@ -1,0 +1,94 @@
+users = {}
+user_reg_again = True
+while user_reg_again == True:
+    user_name_again = True
+    user_login_again = True
+    user_fam_again = True
+    user_age_again = True
+    user_male_again = True
+    all_users_chek = True
+
+
+    while user_name_again == True:
+        user_name_again = False
+        user_name = input('Напишите ваше имя  --')
+        if user_name.isalpha() == False:
+            print(f'Вы использовали запрещенные символы')
+            user_name_again = True
+        elif len(user_name) >= 20:
+            print('Ваше имя слишком длинное')
+            user_name_again = True
+        elif len(user_name) < 1:
+            print('Это обязательное поле')
+            user_name_again = True
+
+    
+    
+    while user_fam_again == True:
+        user_fam_again = False
+        user_fam = input('Напишите вашу фамилию  --')
+        if user_fam.isalpha() == False:
+            print(f'Вы использовали запрещенные символы')
+            user_fam_again = True
+        elif len(user_fam) >= 20:
+            print('Ваша фамилия слишком длинная')
+            user_fam_again = True
+        elif len(user_fam) < 1:
+            print('Это обязательное поле')
+            user_fam_again = True
+    
+    
+    while user_login_again == True:
+        user_login_again = False
+        user_login = input('Напишите фаш логин  --')
+        if user_login.lower() in users:
+            print(f'Этот логин уже есть в системе  --')
+            user_login_again = True
+        elif len(user_login) >= 15:
+            print('Ваш логин слишком длинный')
+            user_login_again = True
+        elif len(user_login) < 5:
+            print('Логин не может быть короче 5 символов')
+            user_login_again = True
+
+    while user_age_again == True:
+        user_age_again = False
+        user_age = input('Напишите ваш возраст (полных лет)  --')
+        if user_age.isdigit() == False:
+            print('Поле для цифр')
+            user_age_again = True
+        elif int(user_age) >= 150:
+            print('Вы слишком стары')
+            user_age_again = True
+        elif int(user_age) < 18:
+            print('Вы слишком малы')
+            user_age_again = True
+
+
+    while user_male_again == True:
+        user_male_again = False
+        user_male = input('Напишите ваш пол (м/ж)  --')
+        if user_male != 'м' and user_male != 'ж':
+            print('только м или ж')
+            user_male_again = True     
+    
+    
+    users[user_login] = {'Name': user_name, 'fam': user_fam, 'age': user_age, 'male': user_male}
+    user_card = users[user_login]
+    print(f'Привет {user_card["Name"].title()} {user_card["fam"].title()}. \nВаш аккаунт {user_login} успешно создан!!')
+
+
+    print('Вот список всех юзеров:')
+    for print_logins in users:
+        print(print_logins)
+
+    while all_users_chek == True:
+        all_users = input('Напишите логин, для открытия карточки человека. Если не хотите напишете n  --')
+        proverka = users.get(all_users, False)
+        
+        if all_users == 'n':
+            all_users_chek = False
+        elif proverka == False:
+            print(f'Извините, но пользователя {all_users} нет в базе данных')
+        else:
+            print(users[all_users])
